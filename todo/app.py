@@ -229,6 +229,13 @@ def delete_task(task_id):
             task.priority = index
         db.session.commit()
     return redirect(url_for('home'))
+    
+# DELETE THIS AFTER FIRST USE
+@app.route('/init-db')
+def init_db():
+    with app.app_context():
+        db.create_all()
+    return 'Database initialized!'
 
 
 if __name__ == '__main__':
