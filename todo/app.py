@@ -55,7 +55,6 @@ def home():
         users = []
 
     return render_template('dashboard.html', user=user, tasks=tasks, users=users)
-🔁 After the Fix
 
 @app.route('/update-profile', methods=['GET', 'POST'])
 def update_profile():
