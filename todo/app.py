@@ -38,14 +38,24 @@ class Task(db.Model):
 def home():
     if 'username' not in session:
         return redirect(url_for('login'))
+
     user = User.query.filter_by(username=session['username']).first()
+
+    # ✅ Fix: if user not found in DB, clear session and redirect
+    if not user:
+        session.pop('username', None)
+        flash('Session expired or user does not exist anymore.', 'warning')
+        return redirect(url_for('login'))
+
     if user.role == 'admin':
         tasks = Task.query.filter_by(status='Pending').order_by(Task.assigned_to, Task.priority.asc().nulls_last()).all()
         users = User.query.filter_by(role='user').all()
     else:
         tasks = Task.query.filter_by(assigned_to=user.username, status='Pending').order_by(Task.priority.asc().nulls_last()).all()
         users = []
+
     return render_template('dashboard.html', user=user, tasks=tasks, users=users)
+🔁 After the Fix
 
 @app.route('/update-profile', methods=['GET', 'POST'])
 def update_profile():
