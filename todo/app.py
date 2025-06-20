@@ -6,7 +6,12 @@ import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
+import urllib.parse
+url = os.environ.get("DATABASE_URL", "sqlite:///todo.db")
+if url.startswith("postgres://"):
+    url = url.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = url
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
