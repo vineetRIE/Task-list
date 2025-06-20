@@ -230,10 +230,6 @@ def delete_task(task_id):
         db.session.commit()
     return redirect(url_for('home'))
 
-@app.route('/init-db')
-def init_db():
-    db.create_all()
-    return "✅ Database initialized successfully!"
 
 if __name__ == '__main__':
     with app.app_context():
