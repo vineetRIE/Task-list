@@ -231,7 +231,7 @@ def delete_task(task_id):
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    if not os.path.exists('todo.db'):
-        with app.app_context():
-            db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
+
