@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Update Profile{% endblock %}
+{% block content %}
+<div class="mt-4 col-md-6 offset-md-3">
+    <h4 class="mb-4">Update Profile</h4>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">New Username</label>
+            <input type="text" name="new_username" class="form-control" value="{{ user.username }}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">New Password</label>
+            <input type="password" name="new_password" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" name="confirm_password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

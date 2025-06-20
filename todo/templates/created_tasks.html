@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Your Created Tasks</h3>
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>Content</th>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.assigned_to or "Unassigned" }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
