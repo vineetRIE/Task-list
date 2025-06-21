@@ -1,27 +1,41 @@
-
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-5">
-    <h3>Your Created Tasks</h3>
-    <table class="table table-bordered table-hover mt-3">
-        <thead class="table-primary">
-            <tr>
-                <th>Content</th>
-                <th>Assigned To</th>
-                <th>Status</th>
-                <th>Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                <td>{{ task.content }}</td>
-                <td>{{ task.assigned_to or "Unassigned" }}</td>
-                <td>{{ task.status }}</td>
-                <td>{{ task.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="rounded-4 p-4 shadow-lg bg-white bg-opacity-75" style="backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+        <h3 class="mb-4"><i class="fas fa-tasks me-2 text-primary"></i>Your Created Tasks</h3>
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped align-middle">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>Content</th>
+                        <th>Assigned To</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr class="text-center">
+                        <td>{{ task.content }}</td>
+                        <td>{{ task.assigned_to or "Unassigned" }}</td>
+                        <td>
+                            {% if task.status == "Completed" %}
+                            <span class="badge bg-success">Completed</span>
+                            {% else %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ task.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">No tasks found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}
